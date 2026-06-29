@@ -15,7 +15,7 @@ window.addEventListener('scroll', function() {
 
     // --- ΡΥΘΜΙΣΗ ZOOM ---
     // Πόσο πολύ θέλουμε να μεγεθυνθεί η εικόνα (π.χ. 30 φορές για να μπούμε στην οθόνη)
-    const maxScale = 30; 
+    const maxScale = 15; 
     const currentScale = 1 + (percent * maxScale);
     
     // Εφαρμόζουμε το Zoom
