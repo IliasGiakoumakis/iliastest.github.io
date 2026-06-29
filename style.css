@@ -2,7 +2,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    background-image: url('laptop.jpg'); /* Άλλαξε το fonto.jpg με το όνομα της δικής σου εικόνας */
+    background-image: url('ailaptop.png'); /* Άλλαξε το fonto.jpg με το όνομα της δικής σου εικόνας */
     background-size: cover; /* Τεντώνει την εικόνα για να γεμίσει όλη την οθόνη ιδανικά */
     background-position: center; /* Κεντράρει την εικόνα */
     background-repeat: no-repeat; /* Δεν την αφήνει να επαναλαμβάνεται σαν πλακάκι */
