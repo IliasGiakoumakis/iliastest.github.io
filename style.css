@@ -1,0 +1,58 @@
+/* Μηδενίζουμε τα περιθώρια */
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Μαύρο φόντο για πιο ωραίο εφέ */
+}
+
+/* Το τούνελ: Κάνουμε τη σελίδα πολύ ψηλή (4 φορές το ύψος της οθόνης) 
+   για να έχουμε χρόνο να κάνουμε ωραίο και αργό scroll */
+.scroll-tunnel {
+    height: 400vh; 
+}
+
+/* Η κάμερα: Μένει καρφωμένη στην οθόνη */
+.camera-view {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Κρύβει ό,τι βγαίνει έξω από την οθόνη στο zoom */
+}
+
+/* Το κουτί που περιέχει τη φωτογραφία και θα ζουμάρει */
+.zoom-wrapper {
+    width: 100%;
+    height: 100%;
+    
+    /* ΤΟ ΜΥΣΤΙΚΟ ΣΟΥ ΕΙΝΑΙ ΕΔΩ! (Δες τις οδηγίες παρακάτω) */
+    transform-origin: 50% 50%; 
+    
+    will-change: transform; /* Βοηθάει το animation να μην κολλάει */
+}
+
+.background-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Η εικόνα γεμίζει όλη την οθόνη χωρίς να παραμορφώνεται */
+}
+
+/* Το πραγματικό site που θα εμφανιστεί στο τέλος */
+.real-website {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* Το φόντο του site σου */
+    opacity: 0; /* Ξεκινάει 100% αόρατο */
+    pointer-events: none; /* Δεν δέχεται κλικ όσο είναι αόρατο */
+    z-index: 10;
+    
+    /* Απλό styling για το placeholder κείμενο */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
