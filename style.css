@@ -2,7 +2,10 @@
 body, html {
     margin: 0;
     padding: 0;
-    background-color: #000; /* Μαύρο φόντο για πιο ωραίο εφέ */
+    background-image: url('fonto.jpg'); /* Άλλαξε το fonto.jpg με το όνομα της δικής σου εικόνας */
+    background-size: cover; /* Τεντώνει την εικόνα για να γεμίσει όλη την οθόνη ιδανικά */
+    background-position: center; /* Κεντράρει την εικόνα */
+    background-repeat: no-repeat; /* Δεν την αφήνει να επαναλαμβάνεται σαν πλακάκι */
 }
 
 /* Το τούνελ: Κάνουμε τη σελίδα πολύ ψηλή (4 φορές το ύψος της οθόνης) 
