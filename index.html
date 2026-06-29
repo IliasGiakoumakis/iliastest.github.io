@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H01YCWJQD2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-H01YCWJQD2');
     </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ilias Giakoumakis</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -31,7 +30,30 @@
             --primary: #38bdf8; --accent: #1e293b; --icon-github: #ffffff;
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px 0; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+        /* ΔΙΟΡΘΩΣΗ 1: Αφαιρέσαμε το flex από το body για να μην σπάει το animation */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            transition: all 0.3s ease; 
+        }
+
+        /* ΔΙΟΡΘΩΣΗ 2: Ρυθμίσεις για να κρύβεται το laptop και να δουλεύει το scroll */
+        .real-website {
+            background-color: var(--bg-body) !important;
+            overflow-y: auto !important;
+        }
+
+        /* ΔΙΟΡΘΩΣΗ 3: Το παλιό σου "body" flex layout μεταφέρθηκε εδώ για να κρατήσει τη δομή των καρτών */
+        .portfolio-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            width: 100%;
+            position: relative;
+            z-index: 10; /* Πάνω από το κύμα */
+        }
 
         .controls { position: fixed; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000; }
         .control-btn { background: var(--bg-card); border: 1px solid var(--text-sub); color: var(--text-main); padding: 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
@@ -50,7 +72,6 @@
         .fa-linkedin { color: var(--icon-linkedin); }
         .fa-envelope { color: var(--icon-gmail); }
         
-        /* Το δικό μου εικονίδιο CSD */
         .csd-custom-icon { width: 35px; height: 35px; object-fit: contain; }
 
         h2 { font-size: 1.3rem; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 1.5rem; }
@@ -64,17 +85,18 @@
         .close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: var(--text-sub); }
 
         footer { margin: 2rem 0; font-size: 0.8rem; color: var(--text-sub); text-align: center; }
+        
         #waveCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Για να είναι πίσω από τις κάρτες */
-            pointer-events: none; /* Για να μπορώ να πατάω τα κουμπιά */
+            z-index: 0; /* ΔΙΟΡΘΩΣΗ 4: Το κάναμε 0 για να φαίνεται πάνω από το background του site, αλλά κάτω από τις κάρτες */
+            pointer-events: none; 
         }
 
-        /* Glassmorphism εφέ στις κάρτες για να φαίνεται το κύμα από πίσω */
+        /* Glassmorphism εφέ στις κάρτες */
         .section {
             background: rgba(255, 255, 255, 0.6) !important;
             backdrop-filter: blur(15px) saturate(150%);
@@ -92,55 +114,55 @@
 <body>
 
     <div class="scroll-tunnel">
-        
         <div class="camera-view">
             
             <div class="zoom-wrapper" id="zoom-target">
                 <img src="ailaptop2.png" alt="Laptop in nature" class="background-img">
-                <div class="zoom-wrapper" id="zoom-target">
-                    <img src="laptop.jpg" alt="Laptop" class="background-img">
-                    <div class="red-dot"></div> 
-                </div>
             </div>
 
             <div class="real-website" id="actual-site">
-                            <canvas id="waveCanvas"></canvas>
-                            <div class="controls">
-                                <button class="control-btn" onclick="toggleLanguage()" id="langBtn">EN</button>
-                                <button class="control-btn" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></button>
-                            </div>
-
-                            <div class="section hero">
-                                <img src="me.png" alt="Ilias" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Ilias+Giakoumakis&background=2563eb&color=fff&size=200'">
-                                <h1 id="heroName">Ilias Giakoumakis</h1>
-                    <div class="subtitle" id="heroSubtitle">Computer Science Undergraduate @ UOC</div>
-        
-                    <div class="social-links">
-                        <a href="https://github.com/IliasGiakoumakis" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/ilias-giakoumakis-106580397/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=iliasggiakoumakis@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
-                        <a href="https://www.csd.uoc.gr/" target="_blank">
-                            <img src="UOC-csd.png" alt="CSD" class="csd-custom-icon" onerror="this.style.display='none'">
-                        </a>
+                
+                <canvas id="waveCanvas"></canvas>
+                
+                <div class="portfolio-content">
+                    
+                    <div class="controls">
+                        <button class="control-btn" onclick="toggleLanguage()" id="langBtn">EN</button>
+                        <button class="control-btn" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></button>
                     </div>
-                </div>
 
-                <div class="section">
-                    <h2 id="aboutTitle"><i class="fas fa-user"></i> About Me</h2>
-                    <p id="aboutText"></p>
-                </div>
+                    <div class="section hero">
+                        <img src="me.png" alt="Ilias" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Ilias+Giakoumakis&background=2563eb&color=fff&size=200'">
+                        <h1 id="heroName">Ilias Giakoumakis</h1>
+                        <div class="subtitle" id="heroSubtitle">Computer Science Undergraduate @ UOC</div>
+            
+                        <div class="social-links">
+                            <a href="https://github.com/IliasGiakoumakis" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/ilias-giakoumakis-106580397/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=iliasggiakoumakis@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.csd.uoc.gr/" target="_blank">
+                                <img src="UOC-csd.png" alt="CSD" class="csd-custom-icon" onerror="this.style.display='none'">
+                            </a>
+                        </div>
+                    </div>
 
-                <div class="section">
-                    <h2 id="coursesTitle"><i class="fas fa-graduation-cap"></i> Courses</h2>
-                    <div id="coursesList"></div>
-                </div>
+                    <div class="section">
+                        <h2 id="aboutTitle"><i class="fas fa-user"></i> About Me</h2>
+                        <p id="aboutText"></p>
+                    </div>
 
-                <div class="section">
-                    <h2 id="certsTitle"><i class="fas fa-certificate"></i> Certifications</h2>
-                    <div id="certsList"></div>
-                </div>
+                    <div class="section">
+                        <h2 id="coursesTitle"><i class="fas fa-graduation-cap"></i> Courses</h2>
+                        <div id="coursesList"></div>
+                    </div>
 
-                <div id="infoModal" class="modal">
+                    <div class="section">
+                        <h2 id="certsTitle"><i class="fas fa-certificate"></i> Certifications</h2>
+                        <div id="certsList"></div>
+                    </div>
+
+                    <footer><span id="footerText"></span></footer>
+                </div> <div id="infoModal" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="closeModal()">&times;</span>
                         <h2 id="modalTitle">Title</h2>
@@ -148,8 +170,6 @@
                         <p id="modalDescription">Description...</p>
                     </div>
                 </div>
-
-                <footer><span id="footerText"></span></footer>
 
                 <script>
                     let currentLang = 'el';
@@ -259,6 +279,8 @@
                     }
 
                     updateUI();
+                    
+                    // Canvas Animation Logic
                     const canvas = document.getElementById('waveCanvas');
                     const ctx = canvas.getContext('2d');
 
@@ -291,7 +313,7 @@
                         ctx.beginPath();
                         for (let i = 0; i < particles.length; i++) {
                             let p = particles[i];
-        
+    
                             // Μαθηματική κίνηση με συνδυασμό Sin και Cos για φυσική ροή
                             p.y = p.baseY + Math.sin(p.angle) * 40 + Math.cos(p.angle * 0.5) * 20;
                             p.angle += 0.02; // Ταχύτητα κύματος
@@ -308,7 +330,7 @@
                                 ctx.lineTo(p.x, p.y);
                                 ctx.stroke();
                             }
-        
+    
                             // Προσθήκη κάθετων γραμμών που "σβήνουν" προς τα κάτω
                             ctx.beginPath();
                             ctx.moveTo(p.x, p.y);
@@ -327,9 +349,7 @@
                     init();
                     draw();
                 </script>
-            </div>
-
-        </div>
+            </div> </div>
     </div>
 
     <script src="script.js"></script>
