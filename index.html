@@ -1,10 +1,93 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H01YCWJQD2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-H01YCWJQD2');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zoom Animation</title>
+    <title>Ilias Giakoumakis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #1e293b; --text-sub: #64748b;
+            --primary: #2563eb; --accent: #dbeafe;
+            --icon-github: #24292e; --icon-linkedin: #0077b5; --icon-gmail: #ea4335;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a; --bg-card: #1e293b; --text-main: #f1f5f9; --text-sub: #94a3b8;
+            --primary: #38bdf8; --accent: #1e293b; --icon-github: #ffffff;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px 0; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+
+        .controls { position: fixed; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000; }
+        .control-btn { background: var(--bg-card); border: 1px solid var(--text-sub); color: var(--text-main); padding: 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+
+        .section { background: var(--bg-card); padding: 2rem; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 600px; width: 90%; margin-bottom: 2rem; }
+
+        .hero { text-align: center; }
+        .profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 5px solid var(--bg-body); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { font-size: 1.8rem; margin: 1rem 0 0.2rem; }
+        .subtitle { color: var(--primary); font-weight: 600; margin-bottom: 1.5rem; }
+
+        .social-links { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1rem; align-items: center; }
+        .social-links a { font-size: 1.8rem; transition: transform 0.2s; text-decoration: none; display: flex; align-items: center; }
+        .social-links a:hover { transform: translateY(-3px); }
+        .fa-github { color: var(--icon-github); }
+        .fa-linkedin { color: var(--icon-linkedin); }
+        .fa-envelope { color: var(--icon-gmail); }
+        
+        /* Το δικό μου εικονίδιο CSD */
+        .csd-custom-icon { width: 35px; height: 35px; object-fit: contain; }
+
+        h2 { font-size: 1.3rem; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 1.5rem; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-radius: 12px; border-bottom: 1px solid var(--accent); cursor: pointer; transition: background 0.2s; }
+        .list-item:hover { background: var(--accent); }
+        .tag { background: var(--primary); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+        .modal-content { background-color: var(--bg-card); margin: 10% auto; padding: 2rem; border-radius: 24px; max-width: 500px; width: 85%; position: relative; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: var(--text-sub); }
+
+        footer { margin: 2rem 0; font-size: 0.8rem; color: var(--text-sub); text-align: center; }
+        #waveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Για να είναι πίσω από τις κάρτες */
+            pointer-events: none; /* Για να μπορώ να πατάω τα κουμπιά */
+        }
+
+        /* Glassmorphism εφέ στις κάρτες για να φαίνεται το κύμα από πίσω */
+        .section {
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(15px) saturate(150%);
+            -webkit-backdrop-filter: blur(15px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+
+        [data-theme="dark"] .section {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
 </head>
 <body>
 
@@ -21,8 +104,229 @@
             </div>
 
             <div class="real-website" id="actual-site">
-                <h1>Καλώς ήρθατε στο πραγματικό μου site!</h1>
-                <p>Εδώ θα μπει ο κώδικας από το index-test.html όταν είμαστε έτοιμοι.</p>
+                            <canvas id="waveCanvas"></canvas>
+                            <div class="controls">
+                                <button class="control-btn" onclick="toggleLanguage()" id="langBtn">EN</button>
+                                <button class="control-btn" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></button>
+                            </div>
+
+                            <div class="section hero">
+                                <img src="me.png" alt="Ilias" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Ilias+Giakoumakis&background=2563eb&color=fff&size=200'">
+                                <h1 id="heroName">Ilias Giakoumakis</h1>
+                    <div class="subtitle" id="heroSubtitle">Computer Science Undergraduate @ UOC</div>
+        
+                    <div class="social-links">
+                        <a href="https://github.com/IliasGiakoumakis" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/ilias-giakoumakis-106580397/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=iliasggiakoumakis@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.csd.uoc.gr/" target="_blank">
+                            <img src="UOC-csd.png" alt="CSD" class="csd-custom-icon" onerror="this.style.display='none'">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 id="aboutTitle"><i class="fas fa-user"></i> About Me</h2>
+                    <p id="aboutText"></p>
+                </div>
+
+                <div class="section">
+                    <h2 id="coursesTitle"><i class="fas fa-graduation-cap"></i> Courses</h2>
+                    <div id="coursesList"></div>
+                </div>
+
+                <div class="section">
+                    <h2 id="certsTitle"><i class="fas fa-certificate"></i> Certifications</h2>
+                    <div id="certsList"></div>
+                </div>
+
+                <div id="infoModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2 id="modalTitle">Title</h2>
+                        <hr style="border: 0; border-top: 1px solid var(--accent); margin: 1rem 0;">
+                        <p id="modalDescription">Description...</p>
+                    </div>
+                </div>
+
+                <footer><span id="footerText"></span></footer>
+
+                <script>
+                    let currentLang = 'el';
+
+                    const content = {
+                        el: {
+                            name: "Ηλίας Γιακουμάκης",
+                            subtitle: "Προπτυχιακός Φοιτητής Επιστήμης Υπολογιστών @ ΠΚ",
+                            aboutTitle: "Σχετικά με μένα",
+                            aboutText: "Γεια! Είμαι ο Ηλίας, φοιτητής του τμήματος Επιστήμης Υπολογιστών (CSD) του Πανεπιστημίου Κρήτης στο Ηράκλειο της Κρήτης. Είμαι ανοιχτός για νέα project και νέες συνεργασίες. Με συναρπάζει ο χώρος της κυβερνοασφάλειας και των δικτύων και είναι κάτι το οποίο το ερευνώ αρκετά τελευταία. :). Αυτήν την περίοδο τρέχω πολλά project με φίλους και γνωστούς μου και αυτό με έχει βοηθήσει να αναπτύξω τις προγραμματιστικές μου δεξιότητες ακόμα και μέσα σε ομάδες. Συνεχίζω ωστόσο να κυνηγάω και την κυβερνοασφάλεια μέσω της πανεπιστημιακής ομάδας 0xdeada1u5.",
+                            coursesTitle: "Μαθήματα",
+                            certsTitle: "Πιστοποιήσεις & Σεμινάρια",
+                            footer: "© 2026 Ηλίας Γιακουμάκης • CSD UOC",
+                            langBtn: "EN",
+                            tagText: "Πληροφορίες",
+                            courses: [
+                                { title: 'HY-100:Εισαγωγή στην Επιστήμη των Υπολογιστών', desc: 'Tο μάθημα αποτελεί μια εισαγωγή στην Επιστήμη των Υπολογιστών. Συγκεκριμένα, το μάθημα πραγματεύεται τα εξής θέματα: <br><ul><li>Μελέτη απλών υπολογιστικών προβλημάτων, αλγορίθμων που τα λύνουν και ανάλυση των λύσεων.</li><li>Μελέτη δομημένου και συναρτησιακού προγραμματισμού σε γλώσσα C, και ανάπτυξη διαφόρων προγραμμάτων βασισμένων στους παραπάνω αλγόριθμους.</li><li>Εκμάθηση διάφορων τύπων δεδομένων, οργάνωσης και αποθήκευσής τους στη μνήμη, καθώς και τρόπων διαχείρισης της μνήμης από το πρόγραμμα.</li>' },
+                                { title: 'ΗΥ-108:Αγγλικά Ι', desc: 'Διαχείριση μνήμης και OOP.' },
+                                { title: 'ΗΥ-110:Απειροστικός Λογισμός Ι', desc: 'Διαφορικές εξισώσεις και υπολογισμός ολοκληρωμάτων.' },
+                                { title: 'ΗΥ-112:Φυσική Ι', desc: 'Ανάλυση κινήσεων, δυνάμεων, ενέργειας και ηλεκτρικών πεδίων.' },
+                                { title: 'HY-119:Γραμμική Άλγεβρα', desc: 'Υπολογισμός πινάκων και Απαλοιφή Gauss.' },
+                                { title: 'ΗΥ-120:Ψηφιακή Σχεδίαση', desc: 'Δημιουργία κυκλωμάτων και ενός απλού υπολογιστή.' }
+                            ],
+                            certs: [
+                                { title: 'InnovaCyBridge', desc: 'Σεμινάρια για την Κυβερνοασφάλεια.',
+                                children: [{ title: 'Strategic Cyber Security and AI Governance', /*desc: 'Intro to AI'*/ },{ title: 'Human-centric Security and Organisational Resilience', /*desc: 'Prompt Engineering'*/ },{ title: 'Effective Security Operations and Infrastructure Defence'}]},
+                                { title: 'Web Development Intro', desc: 'Βασικές γνώσεις HTML/CSS.' }
+                            ]
+                        },
+                        en: {
+                            name: "Ilias Giakoumakis",
+                            subtitle: "Computer Science Undergraduate @ UOC",
+                            aboutTitle: "About Me",
+                            aboutText: "Hi! I am Ilias, a student of the Computer Science Department (CSD) of the University of Crete in Heraklion, Crete. I am open to new projects and new collaborations. I am fascinated by the field of cybersecurity and networks and it is something that I have been researching quite a bit lately. :). I am currently running many projects with friends and acquaintances and this has helped me develop my programming skills even within teams. However, I also continue to pursue cybersecurity through the university team 0xdeada1u5.",
+                            coursesTitle: "Courses",
+                            certsTitle: "Certifications & Seminars",
+                            footer: "© 2026 Ilias Giakoumakis • CSD UOC",
+                            langBtn: "GR",
+                            tagText: "Info",
+                            courses: [
+                                { title: 'CS-100:Introduction to Computer Science', desc: 'Core principles and architecture. <br>Grade: 10' },
+                                { title: 'CS-108:English I', desc: 'Memory management and OOP.' },
+                                { title: 'CS-110:Calculus I', desc: 'Differential equations and integrals.' },
+                                { title: 'CS-112:Physics I', desc: 'Analysis of motion, forces, energy and electric fields.' },
+                                { title: 'CS-119:Linear Algebra', desc: 'Matrix calculation and Gauss elimination.' },
+                                { title: 'CS-120:Digital Design', desc: 'Creating circuits and a simple computer.' }
+                            ],
+                            certs: [
+                                { title: 'InnovaCyBridge', desc: 'Seminar on Cybersecurity.',
+                                children: [{ title: 'Strategic Cyber Security and AI Governance', /*desc: 'Intro to AI'*/ },{ title: 'Human-centric Security and Organisational Resilience', /*desc: 'Prompt Engineering'*/ },{ title: 'Effective Security Operations and Infrastructure Defence'}]},
+                                { title: 'Web Development Intro', desc: 'Basic HTML/CSS knowledge.' }
+                            ]
+                        }
+                    };
+
+                    function updateUI() {
+                        const data = content[currentLang];
+                        document.getElementById('heroName').innerText = data.name;
+                        document.getElementById('heroSubtitle').innerText = data.subtitle;
+                        document.getElementById('aboutTitle').innerHTML = `<i class="fas fa-user"></i> ${data.aboutTitle}`;
+                        document.getElementById('aboutText').innerText = data.aboutText;
+                        document.getElementById('coursesTitle').innerHTML = `<i class="fas fa-graduation-cap"></i> ${data.coursesTitle}`;
+                        document.getElementById('certsTitle').innerHTML = `<i class="fas fa-certificate"></i> ${data.certsTitle}`;
+                        document.getElementById('footerText').innerText = data.footer;
+                        document.getElementById('langBtn').innerText = data.langBtn;
+
+                        // Render Lists
+                        renderList('coursesList', data.courses, data.tagText);
+                        renderList('certsList', data.certs, data.tagText);
+                    }
+
+                    function renderList(elementId, items, tagText) {
+                        const list = document.getElementById(elementId);
+                        list.innerHTML = '';
+                        items.forEach(item => {
+                           const div = document.createElement('div');
+                            div.className = 'list-item';
+                            div.onclick = () => openModal(item.title, item.desc);
+                            div.innerHTML = `<span>${item.title}</span><span class="tag">${tagText}</span>`;
+                            list.appendChild(div);
+                        });
+                    }
+
+                    function toggleLanguage() {
+                        currentLang = currentLang === 'el' ? 'en' : 'el';
+                        updateUI();
+                    }
+
+                    function openModal(title, desc) {
+                        document.getElementById('modalTitle').innerText = title;
+                        document.getElementById('modalDescription').innerHTML = desc;
+                        document.getElementById('infoModal').style.display = "block";
+                    }
+                    function closeModal() { document.getElementById('infoModal').style.display = "none"; }
+                    window.onclick = (e) => { if(e.target == document.getElementById('infoModal')) closeModal(); }
+
+                    function toggleTheme() {
+                        const body = document.body;
+                        const icon = document.getElementById('theme-icon');
+                        if (body.getAttribute('data-theme') === 'dark') {
+                            body.removeAttribute('data-theme');
+                            icon.classList.replace('fa-sun', 'fa-moon');
+                        } else {
+                            body.setAttribute('data-theme', 'dark');
+                            icon.classList.replace('fa-moon', 'fa-sun');
+                        }
+                    }
+
+                    updateUI();
+                    const canvas = document.getElementById('waveCanvas');
+                    const ctx = canvas.getContext('2d');
+
+                    let particles = [];
+                    const particleCount = 60; // Πόσες στήλες τελειών
+                    const spacing = 40; // Απόσταση μεταξύ τους
+
+                    function init() {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                        particles = [];
+                        for (let i = 0; i < particleCount; i++) {
+                            particles.push({
+                                x: (i * (canvas.width / particleCount)) + 50,
+                                y: canvas.height / 2,
+                                baseY: canvas.height * 0.75, // Θέση στον άξονα Υ
+                                angle: i * 0.2
+                            });
+                        }
+                    }
+
+                    function draw() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+                        const isDark = document.body.getAttribute('data-theme') === 'dark';
+                        ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.3)' : 'rgba(37, 99, 235, 0.15)';
+                        ctx.fillStyle = isDark ? 'rgba(56, 189, 248, 0.6)' : 'rgba(37, 99, 235, 0.4)';
+                        ctx.lineWidth = 1;
+
+                        ctx.beginPath();
+                        for (let i = 0; i < particles.length; i++) {
+                            let p = particles[i];
+        
+                            // Μαθηματική κίνηση με συνδυασμό Sin και Cos για φυσική ροή
+                            p.y = p.baseY + Math.sin(p.angle) * 40 + Math.cos(p.angle * 0.5) * 20;
+                            p.angle += 0.02; // Ταχύτητα κύματος
+
+                            // Σχεδίαση της τελείας
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            // Σύνδεση με την επόμενη τελεία (δημιουργία πλέγματος)
+                            if (i > 0) {
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i-1].x, particles[i-1].y);
+                                ctx.lineTo(p.x, p.y);
+                                ctx.stroke();
+                            }
+        
+                            // Προσθήκη κάθετων γραμμών που "σβήνουν" προς τα κάτω
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p.x, p.y + 100);
+                            const gradient = ctx.createLinearGradient(0, p.y, 0, p.y + 100);
+                            gradient.addColorStop(0, isDark ? 'rgba(56, 189, 248, 0.2)' : 'rgba(37, 99, 235, 0.1)');
+                            gradient.addColorStop(1, 'transparent');
+                            ctx.strokeStyle = gradient;
+                            ctx.stroke();
+                        }
+    
+                        requestAnimationFrame(draw);
+                    }
+
+                    window.addEventListener('resize', init);
+                    init();
+                    draw();
+                </script>
             </div>
 
         </div>
