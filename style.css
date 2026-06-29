@@ -52,7 +52,8 @@ body, html {
     opacity: 0; /* Ξεκινάει 100% αόρατο */
     pointer-events: none; /* Δεν δέχεται κλικ όσο είναι αόρατο */
     z-index: 10;
-    
+
+    overflow-y: auto;
     /* Απλό styling για το placeholder κείμενο */
     display: flex;
     flex-direction: column;
