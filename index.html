@@ -110,13 +110,39 @@
             background: rgba(15, 23, 42, 0.6) !important;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
+        /* Εμφάνιση του Live Ρολογιού */
+        .live-clock {
+            position: absolute;
+            top: 8%; /* Πόσο κάτω από την κορυφή θα είναι */
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6); /* Έντονη σκιά για να διαβάζεται τέλεια πάνω στη φωτογραφία */
+            z-index: 5; /* Να είναι κάτω από το τελικό site, για να κρυφτεί μόλις κάνεις scroll */
+            pointer-events: none; /* Να μην εμποδίζει τα κλικ */
+        }
+        .live-clock .time {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+        .live-clock .date {
+            font-size: 1.2rem;
+            font-weight: 300;
+            text-transform: capitalize;
+            color: rgba(255, 255, 255, 0.9);
+        }
     </style>
 </head>
 <body>
 
     <div class="scroll-tunnel">
         <div class="camera-view">
-            
+            <div id="live-clock" class="live-clock"></div>
             <div class="zoom-wrapper" id="zoom-target">
                 <img src="ailaptop2.png" alt="Laptop in nature" class="background-img">
             </div>
@@ -257,6 +283,7 @@
                     function toggleLanguage() {
                         currentLang = currentLang === 'el' ? 'en' : 'el';
                         updateUI();
+                        updateClock();
                     }
 
                     function openModal(title, desc) {
@@ -349,8 +376,28 @@
                     window.addEventListener('resize', init);
                     init();
                     draw();
+                    // --- Μηχανισμός Live Ρολογιού ---
+                    function updateClock() {
+                        const now = new Date();
+                        // Επιλογή γλώσσας ανάλογα με το ποια έχει επιλέξει ο χρήστης
+                        const langCode = currentLang === 'el' ? 'el-GR' : 'en-US';
+                        
+                        // Φόρματ ώρας (π.χ. 14:30:45)
+                        const timeStr = now.toLocaleTimeString(langCode, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        // Φόρματ ημερομηνίας (π.χ. Τρίτη, 30 Ιουνίου 2026)
+                        const dateStr = now.toLocaleDateString(langCode, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                        
+                        document.getElementById('live-clock').innerHTML = `
+                            <div class="time">${timeStr}</div>
+                            <div class="date">${dateStr}</div>
+                        `;
+                    }
+                    
+                    setInterval(updateClock, 1000); // Ανανέωση κάθε 1 δευτερόλεπτο
+                    updateClock(); // Τρέξτο αμέσως μόλις φορτώσει η σελίδα
                 </script>
-            </div> </div>
+            </div> 
+        </div>
     </div>
 
     <script src="script.js"></script>
